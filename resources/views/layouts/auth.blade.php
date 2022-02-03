@@ -76,14 +76,7 @@
         </nav>
 
         <main class="py-4">
-            <div class="row">
-                <div class="col-md-2">タグ一覧</div>
-                <div class="col-md-4">メモ一覧</div>
-                <div class="col-md-6">
-                    新規メモ作成
-                    @yield('content')
-                </div>
-            </div>
+            @yield('content')
         </main>
     </div>
 </body>
