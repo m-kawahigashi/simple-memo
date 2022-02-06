@@ -4,7 +4,7 @@
 <div class="container">
     <div class="card">
     <h5 class="card-header">新規メモ入力</h5>
-        <form class="card-body" action="store" method="POST">
+        <form class="card-body" action={{ route('store') }} method="POST">
             @csrf
             <div class="mb-3">
                 <textarea class="form-control" name="content" placeholder="ここにメモを入力" rows="3"></textarea>
