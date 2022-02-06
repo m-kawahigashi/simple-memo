@@ -97,12 +97,7 @@
                 </div>
                 <!-- 新規メモ入力 -->
                 <div class="col-md-6">
-                    <div class="card">
-                        <h5 class="card-header">新規メモ入力</h5>
-                        <div class="card-body">
-                             @yield('content')
-                        </div>
-                    </div>
+                    @yield('content')
                 </div>
             </div>
         </main>
