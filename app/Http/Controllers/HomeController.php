@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Memo;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -33,7 +34,7 @@ class HomeController extends Controller
         $posts = $request->all();
 
         // 受け取ったデータをDBに登録
-        Memo::insert(['content' => $posts['content'], 'user_id' => \Auth::id()]);
+        Memo::insert(['content' => $posts['content'], 'user_id' => Auth::id()]);
 
         // ホーム画面にリダイレクト
         return  redirect('home');
