@@ -91,7 +91,11 @@
                     <div class="card">
                         <h5 class="card-header">メモ一覧</h5>
                         <div class="card-body">
-                            <p class="card-text">・あいうえお</p>
+                        @foreach($memos as $memo)
+                            <a class="card-text d-block">
+                               ・{{ $memo['content'] }}
+                            </a>
+                        @endforeach
                         </div>
                     </div>
                 </div>
