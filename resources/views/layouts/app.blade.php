@@ -91,18 +91,17 @@
                     <div class="card">
                         <h5 class="card-header">メモ一覧</h5>
                         <div class="card-body">
-                            <p class="card-text">・あいうえお</p>
+                        @foreach($memos as $memo)
+                            <a class="card-text d-block">
+                               ・{{ $memo['content'] }}
+                            </a>
+                        @endforeach
                         </div>
                     </div>
                 </div>
                 <!-- 新規メモ入力 -->
                 <div class="col-md-6">
-                    <div class="card">
-                        <h5 class="card-header">新規メモ入力</h5>
-                        <div class="card-body">
-                             @yield('content')
-                        </div>
-                    </div>
+                    @yield('content')
                 </div>
             </div>
         </main>
