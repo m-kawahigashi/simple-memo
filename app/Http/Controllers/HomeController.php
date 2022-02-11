@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Memo;
-use Illuminate\Http\Client\Request as ClientRequest;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
