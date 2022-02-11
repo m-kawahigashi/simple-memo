@@ -48,4 +48,21 @@ class HomeController extends Controller
         return  redirect('home');
     }
 
+    public function edit($id)
+    {
+
+        // create画面で編集を行うので、ここでもメモ一覧を取得
+        $memos = Memo::select('memos.*')
+        ->where('user_id', '=', Auth::id())
+        ->whereNull('deleted_at')
+        ->orderBy('id', 'DESC')
+        ->get();
+
+        // 編集するメモを取得
+        $edit_memo = Memo::find($id);
+
+        // 取得したメモ一覧と編集データをビューに返す
+        return view('edit', compact('memos','edit_memo'));
+    }
+
 }
