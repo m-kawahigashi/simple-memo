@@ -29,7 +29,7 @@ class HomeController extends Controller
         $memos = Memo::select('memos.*')
                 ->where('user_id', '=', Auth::id())
                 ->whereNull('deleted_at')
-                ->orderBy('id', 'DESC')
+                ->orderBy('updated_at', 'DESC')
                 ->get();
 
         // 取得したメモ一覧をビューに返す
@@ -55,7 +55,7 @@ class HomeController extends Controller
         $memos = Memo::select('memos.*')
         ->where('user_id', '=', Auth::id())
         ->whereNull('deleted_at')
-        ->orderBy('id', 'DESC')
+        ->orderBy('updated_at', 'DESC')
         ->get();
 
         // 編集するメモを取得
