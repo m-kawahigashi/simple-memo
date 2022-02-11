@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Memo;
+use Illuminate\Http\Client\Request as ClientRequest;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -63,6 +64,19 @@ class HomeController extends Controller
 
         // 取得したメモ一覧と編集データをビューに返す
         return view('edit', compact('memos','edit_memo'));
+    }
+
+    public function update(Request $request)
+    {
+
+        // 更新内容を取得
+        $update_post = $request->all();
+
+        // 更新処理
+        Memo::where('id', $update_post['memo_id'])->update(['content' => $update_post['content']]);
+
+        return redirect( route('home') );
+
     }
 
 }
