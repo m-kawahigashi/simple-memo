@@ -12,6 +12,11 @@
             </div>
             <button type="submit" class="btn btn-primary">編集</button>
         </form>
+        <form class="card-body" action={{ route('destroy') }} method="POST">
+            @csrf
+            <input type="hidden" name="memo_id" value="{{ $edit_memo['id'] }}" />
+            <button type="submit" class="btn btn-primary">削除</button>
+        </form>
     </div>
 </div>
 @endsection

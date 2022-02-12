@@ -72,7 +72,21 @@ class HomeController extends Controller
         $update_post = $request->all();
 
         // 更新処理
-        Memo::where('id', $update_post['memo_id'])->update(['content' => $update_post['content']]);
+        Memo::where('id', $update_post['memo_id'])
+            ->update(['content' => $update_post['content']]);
+
+        return redirect( route('home') );
+
+    }
+
+    public function destroy(Request $request)
+    {
+        // 削除対象を取得
+        $delete_memo = $request->all();
+
+        // 削除処理（論理削除）
+        Memo::where('id', $delete_memo['memo_id'])
+            ->update(['deleted_at' => date('y-m-d H:i:s', time())]);
 
         return redirect( route('home') );
 
