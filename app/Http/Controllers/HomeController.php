@@ -54,7 +54,7 @@ class HomeController extends Controller
             $tag_exists = Tag::where('user_id', '=', Auth::id())->where('name', '=', $posts['new_tag'])->exists();
 
             // 新規タグが存在した場合の処理
-            if ( !empty($posts['new_tag']) || $posts['new_tag'] == 0 && !$tag_exists ) {
+            if ( !empty($posts['new_tag']) || $posts['new_tag'] === 0 && !$tag_exists ) {
                 $tag_id = Tag::insertGetId(['name' => $posts['new_tag'], 'user_id' => Auth::id()]);
                 MemoTag::insert(['memo_id' => $memo_id, 'tag_id' => $tag_id]);
             }
