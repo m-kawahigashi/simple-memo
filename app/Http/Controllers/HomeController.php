@@ -59,6 +59,13 @@ class HomeController extends Controller
                 MemoTag::insert(['memo_id' => $memo_id, 'tag_id' => $tag_id]);
             }
 
+            // 既存タグチェック有無確認
+            if( !empty($posts['tags'][0]) ) {
+                // 既存タグにチェックが入った場合、メモと紐づけを行う
+                foreach($posts['tags'] as $tag){
+                    MemoTag::insert(['memo_id' => $memo_id, 'tag_id' => $tag]);
+                }
+            }
         });
 
         // ホーム画面にリダイレクト
