@@ -82,11 +82,25 @@ class HomeController extends Controller
         ->orderBy('updated_at', 'DESC')
         ->get();
 
-        // 編集するメモを取得
-        $edit_memo = Memo::find($id);
+        // 編集するメモと紐づいているタグを取得
+        $edit_memo = Memo::select('memos.*', 'tags.id AS tag_id')
+            ->leftJoin('memo_tags', 'memo_tags.memo_id', '=', 'memos.id')
+            ->leftJoin('tags', 'memo_tags.tag_id', '=', 'tags.id')
+            ->where('memos.user_id', '=', Auth::id())
+            ->where('memos.id', '=', $id)
+            ->whereNull('memos.deleted_at')
+            ->get();
 
-        // 取得したメモ一覧と編集データをビューに返す
-        return view('edit', compact('memos','edit_memo'));
+        $include_tags = [];
+        foreach( $edit_memo as $memo ) {
+            array_push($include_tags, $memo['tag_id']);
+        }
+
+        // ログインしているユーザーのタグを取得
+        $tags = Tag::where('user_id', Auth::id())->whereNull('deleted_at')->orderBy('id', 'DESC')->get();
+
+        // 取得したメモ一覧、タグを編集画面に返す
+        return view('edit', compact('memos','edit_memo', 'include_tags', 'tags'));
     }
 
     public function update(Request $request)
