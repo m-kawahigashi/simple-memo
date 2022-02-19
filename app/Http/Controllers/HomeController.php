@@ -109,12 +109,32 @@ class HomeController extends Controller
         // 更新内容を取得
         $update_post = $request->all();
 
-        // 更新処理
-        Memo::where('id', $update_post['memo_id'])
+        DB::transaction(function() use($update_post) {
+
+            // メモ一覧の更新処理
+            Memo::where('id', $update_post['memo_id'])
             ->update(['content' => $update_post['content']]);
 
-        return redirect( route('home') );
+        // ここからタグの更新処理
+            // 更新前に、一旦タグの紐付けを削除
+            MemoTag::where('memo_id', '=', $update_post['memo_id'])->delete();
 
+            // 再度、タグをメモに紐付け
+            foreach ($update_post['tags'] as $tag) {
+                MemoTag::insert(['memo_id' => $update_post['memo_id'] ,'tag_id' => $tag]);
+            }
+
+            // 新規タグの存在チェック
+            $tag_exists = Tag::where('user_id', '=', Auth::id())->where('name', '=', $update_post['new_tag'])->exists();
+
+            // 新規タグが存在した場合の処理
+            if ( !empty($update_post['new_tag']) || $update_post['new_tag'] === 0  && !$tag_exists ) {
+                $tag_id = Tag::insertGetId(['name' => $update_post['new_tag'], 'user_id' => Auth::id()]);
+                MemoTag::insert(['memo_id' => $update_post['memo_id'], 'tag_id' => $tag_id]);
+            }
+        });
+
+        return redirect( route('home') );
     }
 
     public function destroy(Request $request)
