@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Memo;
+use App\Models\Tag;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -34,12 +35,20 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('*', function($view){
             // ログインしているユーザーの登録メモ一覧を取得
             $memos = Memo::select('memos.*')
-            ->where('user_id', '=', Auth::id())
+                ->where('user_id', '=', Auth::id())
+                ->whereNull('deleted_at')
+                ->orderBy('updated_at', 'DESC')
+                ->get();
+
+        // ログインユーザーのタグ一覧を取得
+        $tags = Tag::where('user_id', '=', Auth::id())
             ->whereNull('deleted_at')
-            ->orderBy('updated_at', 'DESC')
+            ->orderBy('id', 'DESC')
             ->get();
 
-            $view->with('memos', $memos);
+            $view->with('memos', $memos)
+                ->with('tags', $tags);
+
         });
     }
 }
