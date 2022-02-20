@@ -27,18 +27,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // ログインしているユーザーの登録メモ一覧を取得
-        $memos = Memo::select('memos.*')
-                ->where('user_id', '=', Auth::id())
-                ->whereNull('deleted_at')
-                ->orderBy('updated_at', 'DESC')
-                ->get();
-
         // ログインしているユーザーのタグを取得
         $tags = Tag::where('user_id', Auth::id())->whereNull('deleted_at')->orderBy('id', 'DESC')->get();
 
         // 取得したメモ一覧とタグをビューに返す
-        return view('create', compact('memos', 'tags'));
+        return view('create', compact('tags'));
     }
 
     public function store(Request $request)
@@ -74,14 +67,6 @@ class HomeController extends Controller
 
     public function edit($id)
     {
-
-        // create画面で編集を行うので、ここでもメモ一覧を取得
-        $memos = Memo::select('memos.*')
-        ->where('user_id', '=', Auth::id())
-        ->whereNull('deleted_at')
-        ->orderBy('updated_at', 'DESC')
-        ->get();
-
         // 編集するメモと紐づいているタグを取得
         $edit_memo = Memo::select('memos.*', 'tags.id AS tag_id')
             ->leftJoin('memo_tags', 'memo_tags.memo_id', '=', 'memos.id')
@@ -100,7 +85,7 @@ class HomeController extends Controller
         $tags = Tag::where('user_id', Auth::id())->whereNull('deleted_at')->orderBy('id', 'DESC')->get();
 
         // 取得したメモ一覧、タグを編集画面に返す
-        return view('edit', compact('memos','edit_memo', 'include_tags', 'tags'));
+        return view('edit', compact('edit_memo', 'include_tags', 'tags'));
     }
 
     public function update(Request $request)
