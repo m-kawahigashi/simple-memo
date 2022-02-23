@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Memo;
 use App\Models\Tag;
+use Illuminate\Support\Facades\Request;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -33,12 +34,31 @@ class AppServiceProvider extends ServiceProvider
 
         // メモ呼び出しを共通化
         view()->composer('*', function($view){
-            // ログインしているユーザーの登録メモ一覧を取得
-            $memos = Memo::select('memos.*')
-                ->where('user_id', '=', Auth::id())
-                ->whereNull('deleted_at')
-                ->orderBy('updated_at', 'DESC')
-                ->get();
+
+            // 画面からきたクエリパラメータ取得
+            $query_tag = Request::query('tag');
+            // dd($query_tag);値取れてる
+
+            // クエリパラメータがある場合
+            if( !empty($query_tag) ){
+                // クエリパラメータに紐づくメモ一覧のみを取得
+                $memos = Memo::select('memos.*')
+                    ->Leftjoin('memo_tags', 'memo_tags.memo_id', '=', 'memos.id')
+                    ->where('memo_tags.tag_id', '=', $query_tag)
+                    ->where('user_id', '=', Auth::id())
+                    ->whereNull('deleted_at')
+                    ->orderBy('updated_at', 'DESC')
+                    ->get();
+            } else {
+                // ない場合
+                // ログインしているユーザーの全ての登録メモ一覧を取得
+                $memos = Memo::select('memos.*')
+                    ->where('user_id', '=', Auth::id())
+                    ->whereNull('deleted_at')
+                    ->orderBy('updated_at', 'DESC')
+                    ->get();
+            }
+            
 
         // ログインユーザーのタグ一覧を取得
         $tags = Tag::where('user_id', '=', Auth::id())
