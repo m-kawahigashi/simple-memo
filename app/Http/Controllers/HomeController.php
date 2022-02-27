@@ -38,6 +38,8 @@ class HomeController extends Controller
     {
         // 入力された新規メモの受け取り
         $posts = $request->all();
+        // バリデーションチェック（メモ内容が空であればエラーとする）
+        $request->validate([ 'content' => 'required' ]);
 
         DB::transaction(function() use($posts){
             // 受け取ったデータを登録し、登録したIDを返す
@@ -90,6 +92,9 @@ class HomeController extends Controller
 
     public function update(Request $request)
     {
+
+        // バリデーションチェック（メモ内容が空であればエラーとする）
+        $request->validate([ 'content' => 'required' ]);
 
         // 更新内容を取得
         $update_post = $request->all();
