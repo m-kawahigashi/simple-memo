@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('javascript')
+<script src="/js/confirm.js"></script>
+@endsection
+
 @section('content')
 <div class="container">
     <div class="card">
@@ -23,10 +27,10 @@
             <input type="text" class="form-control w-50 mb-3" name="new_tag" placeholder="新しいタグを入力" />
             <button type="submit" class="btn btn-primary">編集</button>
         </form>
-        <form class="card-body" action={{ route('destroy') }} method="POST">
+        <form class="card-body" id="delete-form" action={{ route('destroy') }} method="POST">
             @csrf
             <input type="hidden" name="memo_id" value="{{ $edit_memo[0]['id'] }}" />
-            <button type="submit" class="btn btn-primary">削除</button>
+            <button type="submit" class="btn btn-primary" onclick="deleteHandle(event);">削除</button>
         </form>
     </div>
 </div>
