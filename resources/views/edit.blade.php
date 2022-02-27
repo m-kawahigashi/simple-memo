@@ -10,6 +10,9 @@
             <div class="mb-3">
                 <textarea class="form-control" name="content" placeholder="変更内容を入力" rows="3">{{ $edit_memo[0]['content'] }}</textarea>
             </div>
+            @error('content')
+                <div class="alert alert-danger">メモを入力してください</div>
+            @enderror
             <!-- タグ一覧 -->
             @foreach ($tags as $tag)
                 <div class="form-check form-check-inline">
