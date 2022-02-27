@@ -9,6 +9,9 @@
             <div class="mb-3">
                 <textarea class="form-control" name="content" placeholder="ここにメモを入力" rows="3"></textarea>
             </div>
+            @error('content')
+                <div class="alert alert-danger">メモを入力してください</div>
+            @enderror
         <!-- タグ一覧 -->
         @foreach ($tags as $tag)
             <div class="form-check form-check-inline">
