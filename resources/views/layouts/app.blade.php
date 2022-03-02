@@ -19,6 +19,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- Font Awesome（CDN） -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
 </head>
 <body>
     <div id="app">
@@ -95,7 +97,7 @@
                 <!-- メモ一覧 -->
                 <div class="col-md-4 p-0">
                     <div class="card">
-                        <h5 class="card-header">メモ一覧</h5>
+                        <h5 class="card-header">メモ一覧 <a href="{{ route('home') }}"><i class="fas fa-plus-circle"></i></a></h5>
                         <div class="card-body">
                         @foreach($memos as $memo)
                             <a href="/edit/{{ $memo['id'] }}"  class="card-text d-block">
