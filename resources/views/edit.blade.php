@@ -30,7 +30,7 @@
         <form class="card-body" id="delete-form" action={{ route('destroy') }} method="POST">
             @csrf
             <input type="hidden" name="memo_id" value="{{ $edit_memo[0]['id'] }}" />
-            <button type="submit" class="btn btn-primary" onclick="deleteHandle(event);">削除</button>
+            <i class="fas fa-trash" onclick="deleteHandle(event);"></i>
         </form>
     </div>
 </div>
