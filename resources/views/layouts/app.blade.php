@@ -83,7 +83,8 @@
         <main class="py-4">
             <div class="row">
                 <!-- タグ一覧 -->
-                <div class="col-md-2 p-0">
+                <!-- スマホ表示対応「col-sm-12」追加 -->
+                <div class="col-sm-12 col-md-2 p-0">
                      <div class="card">
                         <h5 class="card-header">タグ一覧</h5>
                         <div class="card-body my-card-body">
@@ -97,7 +98,8 @@
                     </div>
                 </div>
                 <!-- メモ一覧 -->
-                <div class="col-md-4 p-0">
+                <!-- スマホ表示対応「col-sm-12」追加 -->
+                <div class="col-sm-12 col-md-4 p-0">
                     <div class="card">
                         <h5 class="card-header d-flex justify-content-between">メモ一覧 <a href="{{ route('home') }}"><i class="fas fa-plus-circle"></i></a></h5>
                         <div class="card-body my-card-body">
@@ -110,7 +112,8 @@
                     </div>
                 </div>
                 <!-- 新規メモ入力 -->
-                <div class="col-md-6">
+                <!-- スマホ表示対応「col-sm-12」追加 -->
+                <div class="col-sm-12 col-md-6">
                     @yield('content')
                 </div>
             </div>
