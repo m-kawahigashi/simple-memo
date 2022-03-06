@@ -21,6 +21,8 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <!-- Font Awesome（CDN） -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
+    <!-- レイアウト -->
+    <link href="/css/layout.css" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -84,10 +86,10 @@
                 <div class="col-md-2 p-0">
                      <div class="card">
                         <h5 class="card-header">タグ一覧</h5>
-                        <div class="card-body">
+                        <div class="card-body my-card-body">
                             <a href="/" class="card-text d-block">全て表示</a>
                         @foreach($tags as $tag)
-                            <a href="/?tag={{ $tag['id'] }}" class="card-text d-block">
+                            <a href="/?tag={{ $tag['id'] }}" class="card-text d-block ellipsis mb-2">
                                 ・{{ $tag['name'] }}
                             </a>
                         @endforeach
@@ -97,10 +99,10 @@
                 <!-- メモ一覧 -->
                 <div class="col-md-4 p-0">
                     <div class="card">
-                        <h5 class="card-header">メモ一覧 <a href="{{ route('home') }}"><i class="fas fa-plus-circle"></i></a></h5>
-                        <div class="card-body">
+                        <h5 class="card-header d-flex justify-content-between">メモ一覧 <a href="{{ route('home') }}"><i class="fas fa-plus-circle"></i></a></h5>
+                        <div class="card-body my-card-body">
                         @foreach($memos as $memo)
-                            <a href="/edit/{{ $memo['id'] }}"  class="card-text d-block">
+                            <a href="/edit/{{ $memo['id'] }}"  class="card-text d-block ellipsis mb-2">
                                ・{{ $memo['content'] }}
                             </a>
                         @endforeach
