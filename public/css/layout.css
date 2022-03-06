@@ -9,3 +9,11 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+/* @mediaクエリを使用。指定のwidth以下の場合は以下のCSSを適用する */
+@media screen and (max-width:768px) {
+    .my-card-body {
+        height: auto;
+        max-height: 50vh;
+    }
+}
