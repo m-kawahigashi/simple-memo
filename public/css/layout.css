@@ -1,0 +1,11 @@
+.my-card-body{
+    /* headerとcard-headerのピクセル分を画面いっぱいからマイナス */
+    height: calc( 100vh - ( 55.05px + 38.59px ) );
+}
+
+/* 長文省略 */
+.ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
